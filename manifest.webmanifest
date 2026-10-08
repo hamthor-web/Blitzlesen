@@ -1,14 +1,15 @@
 {
-  "name": "Blitzlesen",
-  "short_name": "Blitzlesen",
-  "description": "Lesetraining mit Wortkarten und lokal gespeicherten Fortschritten.",
+  "id": "/blitzlesen-pwa-v1",
+  "name": "Blitzschnelle Spiele",
+  "short_name": "Blitzspiele",
+  "description": "Wörter lesen und Lücken füllen – blitzschnell!",
   "lang": "de",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#efefef",
-  "theme_color": "#efefef",
+  "background_color": "#dff2ff",
+  "theme_color": "#087fef",
   "icons": [
     {
       "src": "./icons/icon-192.png",
@@ -28,6 +29,5 @@
       "type": "image/png",
       "purpose": "maskable"
     }
-  ],
-  "id": "/blitzlesen-pwa-v1"
+  ]
 }

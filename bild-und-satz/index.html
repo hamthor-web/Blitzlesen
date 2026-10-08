@@ -1,0 +1,207 @@
+<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f5f8f1"><meta name="description" content="Blitzlesen – Bild und Satz: 60 Lesespiel-Rätsel in sechs Spielvarianten, auch offline."><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><title>Blitzschnelle Spiele · Lücken füllen</title><style>*{box-sizing:border-box}
+:root{--bg:#f5f8f1;--ink:#243e33;--accent:#268364;--accent2:#d9f1e3;--line:#cadacd;--soft:#ecf3eb;--muted:#5a7467;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;overscroll-behavior:none;background:var(--bg)}
+button{font:inherit;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #42a781;outline-offset:2px}
+.hidden{display:none!important}
+#app{max-width:900px;min-width:0;margin:0 auto;width:100%;height:100vh;height:100dvh;overflow:hidden;display:flex;flex-direction:column;gap:5px;padding:max(5px,env(safe-area-inset-top)) 10px max(6px,env(safe-area-inset-bottom))}
+header{height:39px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0}
+.brand{font-weight:900;font-size:clamp(16px,3.9vw,20px);letter-spacing:-.025em}.tagline{font-size:11px;color:var(--muted);line-height:1.1}.head-right{color:var(--muted);font-size:12px;text-align:right;white-space:nowrap}
+.btn{border:1.5px solid var(--line);background:#fff;color:#285743;border-radius:11px;min-height:39px;padding:7px 12px;font-size:13px;font-weight:750}
+.btn.main{background:var(--accent);border-color:var(--accent);color:#fff}.btn:disabled{opacity:.32;cursor:default}
+#menu,#results{flex:1;min-height:0;overflow-y:auto;padding:8px 2px 16px}
+h1{font-size:clamp(24px,6vw,31px);line-height:1.15;margin:9px 0 9px}.intro{font-size:14px;line-height:1.4;color:var(--muted);max-width:650px;margin:0 0 15px}
+.modegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mode{min-height:113px;text-align:left;padding:12px;border:1.5px solid var(--line);border-radius:16px;background:white;color:var(--ink)}.mode strong{display:block;font-size:clamp(14px,3.5vw,17px);margin-bottom:6px}.mode small{display:block;font-size:12px;line-height:1.3;color:var(--muted)}.mode em{display:inline-block;font-style:normal;font-weight:700;font-size:11px;background:#e8f3ea;border-radius:20px;color:#28755a;padding:3px 8px;margin-top:8px}
+.practice{display:flex;align-items:center;gap:9px;margin:15px 2px;padding:13px 14px;background:#e8f2e7;border:1px solid #dceadb;border-radius:14px;font-size:14px;line-height:1.35}.practice input{width:22px;height:22px;accent-color:var(--accent);flex-shrink:0}.note{color:var(--muted);font-size:12px;line-height:1.5;margin:12px 0}
+#game{flex:1;display:flex;flex-direction:column;min-height:0;gap:5px}
+.status{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:34px;flex-shrink:0}.stage{font-size:12px;font-weight:800;color:#2c7255}.num{font-size:13px;font-weight:800;color:#27513c}.clock{font-variant-numeric:tabular-nums;font-size:18px;font-weight:900;color:var(--accent);min-width:50px;text-align:right}
+.timertrack{width:100%;height:7px;background:#dce8dc;border-radius:20px;overflow:hidden;flex-shrink:0}.timerfill{height:100%;width:100%;background:var(--accent);transition:width .2s linear}.timerfill.low{background:#d48d38}
+.content{flex:1;min-height:0;display:flex;flex-direction:column;gap:6px}
+.figure{flex:1 1 42%;max-height:48%;min-height:90px;overflow:hidden;border-radius:15px;display:flex;align-items:center;justify-content:center;background:linear-gradient(#e7f5fb,#fff2df);border:1px solid #e8ebe3}
+.figure img{display:block;width:100%;height:100%;object-fit:contain}
+.task{display:flex;flex-direction:column;min-height:0;flex-shrink:0;gap:6px}
+.sentence{font-size:clamp(17px,4.6vw,24px);font-weight:780;letter-spacing:-.012em;line-height:1.7;text-align:center;min-height:54px;overflow-wrap:normal;hyphens:auto}
+.hole{vertical-align:middle;display:inline-flex;align-items:center;justify-content:center;min-width:clamp(87px,22vw,136px);min-height:45px;margin:2px 3px;border:2px dashed #8dac99;background:#fff;border-radius:11px;padding:5px 7px;font-size:clamp(13px,3.8vw,19px);line-height:1.1;font-weight:800;overflow-wrap:anywhere}
+.hole.filled{border-style:solid;border-color:var(--accent);background:#dff1e3}.hole.target{background:#c9ecd7;border-color:#148257;transform:scale(1.03)}.hole.tapslot{cursor:pointer}
+.wordgroups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;min-height:0;touch-action:none}.wordgroups.one{grid-template-columns:1fr}.wordgroup{min-width:0;padding:6px;background:#e9f1e9;border:1px solid #deeadc;border-radius:12px;display:grid;grid-template-columns:1fr;gap:6px}
+.wordgroups.one .wordgroup{grid-template-columns:repeat(3,minmax(0,1fr))}
+.word{min-height:48px;min-width:0;display:flex;align-items:center;justify-content:center;word-break:normal;overflow-wrap:anywhere;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none;background:#fff;border:2px solid #bfd2c0;border-radius:10px;padding:5px 2px;color:#244c38;font-weight:800;font-size:clamp(12px,3.4vw,18px);line-height:1.13;text-align:center;cursor:grab}
+.word.used{visibility:hidden;pointer-events:none}.word.dragged{opacity:.3}.word.selected{border-color:var(--accent);background:#dcf3e4}
+.feedback{min-height:22px;max-height:32px;font-size:12px;line-height:1.25;color:var(--muted);display:flex;align-items:center;justify-content:center;text-align:center}.feedback.ok{font-weight:750;color:#22815b}.feedback.bad{font-weight:750;color:#aa583e}
+.gamefooter{display:flex;justify-content:space-between;gap:8px;align-items:center;min-height:43px;flex-shrink:0}.gamefooter .btn{min-height:36px;padding:6px 11px}.gamefooter .right{display:flex;gap:7px}
+.dragghost{position:fixed;z-index:1000;pointer-events:none;transform:translate(-50%,-112%);font-weight:900;font-size:18px;line-height:1.1;border:2px solid #248960;border-radius:12px;background:#e3f9eb;color:#19482f;padding:10px 13px;box-shadow:0 8px 24px #193f332e;max-width:190px;text-align:center}
+#results h2{font-size:clamp(24px,6vw,31px);margin:12px 0 8px}.resultlead{font-size:14px;color:var(--muted);line-height:1.45}.score{font-size:24px;font-weight:900;color:var(--accent);margin:17px 0 6px}.barrow{display:grid;grid-template-columns:122px 1fr 41px;align-items:center;gap:9px;margin:14px 0;font-size:13px;font-weight:650}.bartrack{height:15px;border-radius:20px;background:#dce9df;overflow:hidden}.barfill{height:100%;background:#42a37c;border-radius:20px;width:0%}.barfill.orange{background:#dc9654}.barrow strong{text-align:right;font-variant-numeric:tabular-nums}.buttons{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap}
+@media(min-width:700px){.modegrid{grid-template-columns:repeat(3,minmax(0,1fr))}.figure{max-height:51%}}
+@media(orientation:landscape){.content{display:grid;grid-template-columns:43% minmax(0,1fr);gap:10px;align-items:stretch}.figure{max-height:100%;height:100%;min-height:0}.task{justify-content:center;gap:5px}.sentence{font-size:clamp(15px,2.3vw,22px);line-height:1.35;min-height:0}.hole{min-height:37px;min-width:78px;font-size:clamp(12px,2vw,17px)}.word{font-size:clamp(11px,1.8vw,16px);min-height:40px}.wordgroup{gap:5px;padding:5px}.feedback{font-size:11px}}
+@media(orientation:landscape) and (max-height:460px){#app{gap:2px;padding:2px 8px}header{height:30px}.tagline{display:none}.status{min-height:28px}.clock{font-size:16px}.timertrack{height:5px}.content{gap:6px}.word{min-height:32px;font-size:clamp(11px,1.7vw,14px)}.wordgroup{gap:3px;padding:3px}.hole{min-height:31px}.sentence{font-size:clamp(14px,2vw,18px);line-height:1.2}.feedback{min-height:17px}.gamefooter{min-height:30px}.gamefooter .btn{min-height:29px;padding:4px 9px}}
+@media(orientation:portrait) and (max-height:750px){#app{gap:2px;padding-top:2px;padding-bottom:3px}header{height:30px}.tagline{display:none}.status{min-height:28px}.timertrack{height:5px}.content{gap:3px}.figure{max-height:35%;min-height:70px}.task{gap:3px}.sentence{font-size:clamp(16px,4.3vw,20px);line-height:1.45;min-height:0}.hole{min-height:36px;min-width:82px;font-size:clamp(12px,3.4vw,16px)}.word{min-height:40px;font-size:clamp(12px,3.1vw,16px)}.wordgroup{gap:4px;padding:4px}.feedback{min-height:19px;font-size:11px}.gamefooter{min-height:32px}.gamefooter .btn{min-height:31px;padding:4px 9px}}
+@media(orientation:portrait) and (max-width:350px){.word{font-size:12px}.wordgroups{gap:5px}.sentence{font-size:16px}.hole{min-width:76px}}
+
+.mainLink{display:inline-flex;align-items:center;text-decoration:none;margin:0 0 13px;padding:10px 14px}
+
+/* Dieselbe grün-gelbe Lesetreppe wie beim ursprünglichen Blitzlesen. */
+.resultTreppenBox{margin:16px 0 18px;text-align:left}
+.resultTreppenTitle{font-size:15px;font-weight:800;color:#4d4a46;margin:0 0 8px}
+.resultTreppenTrack{width:100%;background:#f1ece1;border:1px solid #e2dac8;border-radius:18px;min-height:56px;box-shadow:inset 0 1px 2px rgba(0,0,0,.05);padding:0;display:flex;align-items:stretch;overflow:hidden}
+.resultTreppenBar{display:flex;align-items:stretch;min-height:56px;border-radius:18px;overflow:hidden;background:transparent}
+.treppeGreen,.treppeYellow{display:flex;align-items:center;justify-content:center;font-weight:900;font-size:clamp(24px,6vw,34px);line-height:1;color:#fff;padding:8px 6px;text-shadow:0 1px 1px rgba(0,0,0,.15)}
+.treppeGreen{background:linear-gradient(180deg,#69b94f 0%, #4e9a34 100%)}
+.treppeYellow{background:linear-gradient(180deg,#f3d34d 0%, #e3b92b 100%);color:#5b4a00;text-shadow:none}
+.treppeLegend{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-size:14px;color:#5d584f;margin-top:8px}
+.treppeLegend span{display:inline-flex;align-items:center;gap:6px}
+.treppeDot{width:12px;height:12px;border-radius:50%;display:inline-block;flex:none}
+.treppeDot.green{background:#4e9a34}.treppeDot.yellow{background:#e3b92b}
+.treppeSentence{margin:10px 0 0;font-size:16px;font-weight:750;color:#4f4b44;text-align:center}
+.historyStack{margin-top:8px}
+.previousRuns{margin:22px 0 10px;padding-top:12px;border-top:1px solid #d9d6d0}
+.previousRuns h3{font-size:18px;margin:3px 0}
+.previousAttempt{padding:13px 0;border-bottom:1px solid #ece7dd}
+.previousAttempt header{height:auto;display:flex;justify-content:space-between;gap:10px;align-items:baseline;flex-wrap:wrap}
+.previousAttempt .historyMeta{font-size:13px;color:#575752}
+.previousAttempt .historyMeta.under{margin-top:8px;text-align:left}
+.previousAttempt .resultTreppenTrack{min-height:56px}
+@media (max-width:380px){.treppeGreen,.treppeYellow{font-size:24px}.previousRuns h3{font-size:16px}}
+
+.appNav{display:flex;align-items:center;flex-shrink:0;min-height:33px}
+.appNav .mainLink{display:inline-flex;align-items:center;justify-content:center;min-height:32px;margin:0;padding:5px 12px;font-size:13px;line-height:1.2;border-radius:10px}
+.appNav a:focus-visible{outline:3px solid #42a781;outline-offset:2px}
+</style><script src="app.js" defer></script></head><body><div id="app">
+<header><div><div class="brand">Blitzschnelle Spiele · Lücken füllen</div><div class="tagline">Lesen, schauen, Wörter zuordnen</div></div><div class="head-right" id="hinfo">60 Bildrätsel</div></header>
+<nav class="appNav" aria-label="Navigation zur Spieleübersicht"><a id="backToGames" href="../" class="btn mainLink">‹ Zur Spielauswahl</a></nav>
+<section id="menu">
+<h1>Welche Runde spielst du?</h1>
+<p class="intro">Schau dir das Bild an, lies den Satz und ziehe das richtige Wort direkt in die Lücke. Du hast normalerweise <strong>eine Minute</strong> Zeit. Jede Stufe enthält 20 unterschiedliche Bildrätsel. Die Auswahlwörter werden bei jeder neuen Runde neu gemischt.</p>
+<div class="modegrid" id="modegrid"></div>
+<label class="practice"><input type="checkbox" id="practice"><span><strong>Ohne Zeitlimit üben</strong><br>Alle 20 Aufgaben in Ruhe ansehen, vor- und zurückblättern.</span></label>
+<p class="note">Dein persönlicher Rekord bleibt nur auf diesem Gerät gespeichert. Die Bilder und das Spiel funktionieren auch offline, nachdem die App vollständig geladen wurde.</p>
+</section>
+<section id="game" class="hidden" aria-label="Bildrätsel spielen">
+<div class="status"><button class="btn" id="goMenu">‹ Auswahl</button><span class="stage" id="stage"></span><span class="num" id="count"></span><span class="clock" id="clock">1:00</span></div>
+<div class="timertrack" id="timertrack"><div class="timerfill" id="timerfill"></div></div>
+<div class="content">
+<div class="figure"><img id="picture" alt="Bild zur Leseaufgabe" draggable="false"></div>
+<div class="task"><div class="sentence" id="sentence"></div><div class="wordgroups" id="words"></div><div class="feedback" id="feedback" aria-live="polite"></div></div>
+</div>
+<footer class="gamefooter"><button class="btn" id="reset">↻ Nochmal</button><div class="right"><button class="btn hidden" id="prev">‹ Zurück</button><button class="btn main hidden" id="next">Weiter ›</button></div></footer>
+</section>
+<section id="results" class="hidden">
+<h2 id="resulttitle">Geschafft!</h2><p class="resultlead" id="resultintro"></p>
+<div class="score" id="score"></div>
+<div class="resultTreppenBox" id="treppeBox" aria-label="Lesetreppe">
+  <p class="resultTreppenTitle">Deine Lesetreppe</p>
+  <div class="resultTreppenTrack"><div class="resultTreppenBar" id="resultTreppenBar"><div class="treppeGreen" id="treppeGreen">0</div><div class="treppeYellow" id="treppeYellow">0</div></div></div>
+  <div class="treppeLegend"><span><i class="treppeDot green"></i>geschafft</span><span><i class="treppeDot yellow"></i>noch einmal</span></div>
+  <p class="treppeSentence" id="treppeSentence">0 geschafft + 0 noch einmal = 0 Versuche</p>
+</div>
+<p class="note" id="record"></p>
+<section class="previousRuns" id="previousRuns"><h3>Deine bisherigen Durchgänge</h3><p class="note">Nur diese Spielstufe · auf diesem Gerät gespeichert.</p><div id="history"></div></section>
+<div class="buttons"><button class="btn main" id="again">Noch einmal</button><button class="btn" id="choose">Andere Stufe</button></div>
+</section>
+</div><script>const DATA={"easy":[{"id":"e01","sentence":"Der Hase sitzt im ___.","answers":["Korb"],"groups":[["Korb","Topf","Schuh"]],"image":"bilder/e01.webp","description":"Hase in einem Weidenkorb, heller Hintergrund."},{"id":"e02","sentence":"Die Ente schwimmt im ___.","answers":["Teich"],"groups":[["Baum","Sand","Teich"]],"image":"bilder/e02.webp","description":"Ente auf kleinem Teich; nur Wasser und Ente."},{"id":"e03","sentence":"Der Junge trägt eine rote ___.","answers":["Mütze"],"groups":[["Hose","Mütze","Socke"]],"image":"bilder/e03.webp","description":"Junge mit deutlich sichtbarer roter Mütze."},{"id":"e04","sentence":"Auf dem Tisch steht eine ___.","answers":["Kerze"],"groups":[["Kerze","Katze","Tasche"]],"image":"bilder/e04.webp","description":"Ein Tisch mit einer brennenden Kerze."},{"id":"e05","sentence":"Der Frosch sitzt auf einem ___.","answers":["Stein"],"groups":[["Pilz","Stuhl","Stein"]],"image":"bilder/e05.webp","description":"Grüner Frosch auf grauem Stein."},{"id":"e06","sentence":"Die Maus frisst ein Stück ___.","answers":["Käse"],"groups":[["Brot","Käse","Kuchen"]],"image":"bilder/e06.webp","description":"Maus knabbert an Käse."},{"id":"e07","sentence":"Das Kind hält einen ___.","answers":["Drachen"],"groups":[["Drachen","Besen","Schirm"]],"image":"bilder/e07.webp","description":"Kind hält einen Flugdrachen an der Schnur."},{"id":"e08","sentence":"Im Nest liegen drei ___.","answers":["Eier"],"groups":[["Äpfel","Nüsse","Eier"]],"image":"bilder/e08.webp","description":"Ein Nest mit genau drei gut sichtbaren Eiern."},{"id":"e09","sentence":"Der Bär schläft in einer ___.","answers":["Höhle"],"groups":[["Kiste","Höhle","Wanne"]],"image":"bilder/e09.webp","description":"Schlafender Bär in klar erkennbarer Felsenhöhle."},{"id":"e10","sentence":"Der Ball liegt unter dem ___.","answers":["Bett"],"groups":[["Bett","Baum","Tisch"]],"image":"bilder/e10.webp","description":"Ball unter einem Bett; nur Bett und Ball."},{"id":"e11","sentence":"Der Hund trägt einen ___.","answers":["Ball"],"groups":[["Stock","Schuh","Ball"]],"image":"bilder/e11.webp","description":"Hund mit Ball im Maul."},{"id":"e12","sentence":"Die Blume ist ___.","answers":["gelb"],"groups":[["blau","gelb","rot"]],"image":"bilder/e12.webp","description":"Eine einzelne große gelbe Blume."},{"id":"e13","sentence":"Der Zug fährt über die ___.","answers":["Brücke"],"groups":[["Straße","Wiese","Brücke"]],"image":"bilder/e13.webp","description":"Zug auf klar erkennbarer Brücke."},{"id":"e14","sentence":"Die Oma gießt die ___.","answers":["Blumen"],"groups":[["Blumen","Bücher","Steine"]],"image":"bilder/e14.webp","description":"Oma gießt wenige große Blumen."},{"id":"e15","sentence":"Der Apfel liegt auf dem ___.","answers":["Teller"],"groups":[["Boden","Teller","Baum"]],"image":"bilder/e15.webp","description":"Ein Apfel auf einem Teller."},{"id":"e16","sentence":"Die Schnecke kriecht auf einem ___.","answers":["Blatt"],"groups":[["Blatt","Glas","Schuh"]],"image":"bilder/e16.webp","description":"Schnecke auf einem großen grünen Blatt."},{"id":"e17","sentence":"Das Schwein steht im ___.","answers":["Schlamm"],"groups":[["Wasser","Schnee","Schlamm"]],"image":"bilder/e17.webp","description":"Schwein in braunem Schlamm."},{"id":"e18","sentence":"Das Mädchen hält einen ___.","answers":["Regenschirm"],"groups":[["Koffer","Regenschirm","Löffel"]],"image":"bilder/e18.webp","description":"Mädchen mit offenem Regenschirm."},{"id":"e19","sentence":"Auf der Wiese steht ein ___.","answers":["Zelt"],"groups":[["Zelt","Boot","Sofa"]],"image":"bilder/e19.webp","description":"Ein Zelt auf grüner Wiese."},{"id":"e20","sentence":"Die Katze schaut aus dem ___.","answers":["Fenster"],"groups":[["Eimer","Korb","Fenster"]],"image":"bilder/e20.webp","description":"Katze schaut aus einem deutlichen Fenster."}],"medium":[{"id":"m01","sentence":"Der ___ sitzt auf dem ___.","answers":["Vogel","Ast"],"groups":[["Vogel","Frosch","Hund"],["Ast","Stein","Dach"]],"image":"bilder/m01.webp","description":"Ein Vogel auf einem einzelnen Ast."},{"id":"m02","sentence":"Die ___ trägt einen ___ Hut.","answers":["Hexe","grünen"],"groups":[["Hexe","Prinzessin","Blume"],["roten","grünen","blauen"]],"image":"bilder/m02.webp","description":"Freundliche Hexe mit großem grünem Spitzhut."},{"id":"m03","sentence":"Der ___ fährt mit einem ___ Fahrrad.","answers":["Junge","blauen"],"groups":[["Junge","Opa","Hund"],["roten","gelben","blauen"]],"image":"bilder/m03.webp","description":"Junge auf blauem Fahrrad; ganz sichtbar."},{"id":"m04","sentence":"Im ___ schwimmen vier ___.","answers":["Teich","Fische"],"groups":[["Teich","Glas","Eimer"],["Enten","Fische","Frösche"]],"image":"bilder/m04.webp","description":"Genau vier sichtbare Fische in kleinem Teich."},{"id":"m05","sentence":"Die ___ sitzt auf einem ___ Kissen.","answers":["Katze","roten"],"groups":[["Maus","Katze","Ente"],["roten","gelben","grünen"]],"image":"bilder/m05.webp","description":"Katze auf einem großen roten Kissen."},{"id":"m06","sentence":"Der ___ schläft unter dem ___.","answers":["Hund","Baum"],"groups":[["Hund","Bär","Fuchs"],["Tisch","Baum","Bett"]],"image":"bilder/m06.webp","description":"Schlafender Hund unter einem Baum."},{"id":"m07","sentence":"Die ___ liegt neben dem ___.","answers":["Socke","Schuh"],"groups":[["Socke","Tasse","Bürste"],["Schuh","Buch","Ball"]],"image":"bilder/m07.webp","description":"Eine Socke direkt neben einem Schuh."},{"id":"m08","sentence":"Der ___ hält eine ___ in der Hand.","answers":["Clown","Blume"],"groups":[["Clown","Ritter","König"],["Blume","Lampe","Gabel"]],"image":"bilder/m08.webp","description":"Clown hält eine große Blume."},{"id":"m09","sentence":"Auf dem ___ stehen fünf ___.","answers":["Zaun","Katzen"],"groups":[["Tisch","Zaun","Dach"],["Vögel","Katzen","Tassen"]],"image":"bilder/m09.webp","description":"Genau fünf Katzen auf einem Zaun."},{"id":"m10","sentence":"Der ___ steckt in einer ___.","answers":["Schlüssel","Tür"],"groups":[["Schlüssel","Löffel","Stift"],["Tasche","Tür","Schachtel"]],"image":"bilder/m10.webp","description":"Schlüssel steckt in deutlich sichtbarem Türschloss."},{"id":"m11","sentence":"Die ___ trägt einen ___ Schal.","answers":["Oma","roten"],"groups":[["Oma","Ente","Katze"],["blauen","roten","gelben"]],"image":"bilder/m11.webp","description":"Oma mit großem roten Schal."},{"id":"m12","sentence":"Der ___ springt über einen ___.","answers":["Hund","Baumstamm"],"groups":[["Hund","Hase","Frosch"],["Baumstamm","Eimer","Stein"]],"image":"bilder/m12.webp","description":"Hund springt über liegenden Baumstamm."},{"id":"m13","sentence":"Die ___ sitzt auf einer ___ Blume.","answers":["Biene","roten"],"groups":[["Biene","Maus","Fliege"],["blauen","roten","weißen"]],"image":"bilder/m13.webp","description":"Biene auf einzelner roter Blume."},{"id":"m14","sentence":"Der ___ steht neben der ___.","answers":["Esel","Scheune"],"groups":[["Hund","Esel","Hase"],["Scheune","Schule","Kirche"]],"image":"bilder/m14.webp","description":"Esel neben roter Scheune."},{"id":"m15","sentence":"Die ___ schiebt einen ___ Wagen.","answers":["Frau","gelben"],"groups":[["Frau","Katze","Windmühle"],["blauen","gelben","roten"]],"image":"bilder/m15.webp","description":"Frau schiebt kleinen gelben Handwagen."},{"id":"m16","sentence":"Der ___ sitzt auf einem ___ Pilz.","answers":["Zwerg","roten"],"groups":[["Zwerg","Frosch","Weg"],["blauen","roten","grünen"]],"image":"bilder/m16.webp","description":"Zwerg auf großem roten Pilz."},{"id":"m17","sentence":"Im ___ schwimmt ein ___ Fisch.","answers":["Eimer","gelber"],"groups":[["Teich","Eimer","Nest"],["roter","gelber","grüner"]],"image":"bilder/m17.webp","description":"Ein gelber Fisch schwimmt im Eimer."},{"id":"m18","sentence":"Der ___ versteckt sich hinter dem ___.","answers":["Fuchs","Busch"],"groups":[["Fuchs","Hase","Räuber"],["Busch","Tisch","Haus"]],"image":"bilder/m18.webp","description":"Fuchs teilweise hinter einem Busch; Kopf und Schwanz sichtbar."},{"id":"m19","sentence":"Die ___ steht auf dem ___ Teppich.","answers":["Lampe","grünen"],"groups":[["Lampe","Tasse","Pflanze"],["roten","blauen","grünen"]],"image":"bilder/m19.webp","description":"Stehlampe auf grünem Teppich."},{"id":"m20","sentence":"Der ___ trägt eine ___ voller Gold.","answers":["Räuber","Kiste"],"groups":[["Räuber","Hund","Wagen"],["Kiste","Tasche","Mütze"]],"image":"bilder/m20.webp","description":"Freundlicher Räuber mit offener Holzkiste voller Goldmünzen."}],"funny":[{"id":"f01","sentence":"Der ___ trägt ___ Schuhe.","answers":["Elefant","vier"],"groups":[["Elefant","Hase","Affe"],["zwei","vier","sechs"]],"image":"bilder/f01.webp","description":"Elefant mit genau vier sichtbaren Schuhen."},{"id":"f02","sentence":"Die ___ sitzt in einer ___ Tasse.","answers":["Maus","blauen"],"groups":[["Maus","Katze","Schnecke"],["roten","blauen","grünen"]],"image":"bilder/f02.webp","description":"Maus in riesiger blauer Tasse."},{"id":"f03","sentence":"Der ___ fährt mit dem ___.","answers":["Bär","Roller"],"groups":[["Bär","Junge","Fuchs"],["Fahrrad","Roller","Auto"]],"image":"bilder/f03.webp","description":"Bär fährt Roller, ohne zusätzliche Szene."},{"id":"f04","sentence":"Auf dem ___ sitzt ein ___ Frosch.","answers":["Mond","grüner"],"groups":[["Mond","Dach","Baum"],["roter","grüner","gelber"]],"image":"bilder/f04.webp","description":"Grüner Frosch auf gelber Mondsichel."},{"id":"f05","sentence":"Die ___ trägt einen ___ auf dem Kopf.","answers":["Ente","Kochtopf"],"groups":[["Ente","Maus","Katze"],["Kochtopf","Schuh","Drachen"]],"image":"bilder/f05.webp","description":"Ente mit umgedrehtem Kochtopf auf dem Kopf."},{"id":"f06","sentence":"Der ___ schläft in einer ___ Hängematte.","answers":["Drache","roten"],"groups":[["Drache","Löwe","Hund"],["blauen","roten","gelben"]],"image":"bilder/f06.webp","description":"Kleiner Drache in roter Hängematte."},{"id":"f07","sentence":"Die ___ fährt mit einem ___ Schlitten.","answers":["Hexe","grünen"],"groups":[["Hexe","Blume","Schnecke"],["roten","grünen","blauen"]],"image":"bilder/f07.webp","description":"Hexe auf grünem Schlitten."},{"id":"f08","sentence":"Der ___ jongliert mit drei ___.","answers":["Löwe","Äpfeln"],"groups":[["Löwe","Frosch","Bär"],["Birnen","Äpfeln","Bällen"]],"image":"bilder/f08.webp","description":"Löwe jongliert mit genau drei Äpfeln."},{"id":"f09","sentence":"Die ___ steht auf einem ___.","answers":["Giraffe","Bein"],"groups":[["Giraffe","Katze","Maus"],["Bein","Baum","Wein"]],"image":"bilder/f09.webp","description":"Giraffe balanciert sichtbar auf nur einem Bein."},{"id":"f10","sentence":"Der ___ putzt sich mit einer ___ die Zähne.","answers":["Drache","Zahnbürste"],"groups":[["Drache","Elefant","Fuchs"],["Gabel","Zahnbürste","Stift"]],"image":"bilder/f10.webp","description":"Drache putzt sichtbare Zähne mit einer Zahnbürste."},{"id":"f11","sentence":"Der ___ fährt auf einem ___ durch den Garten.","answers":["Hut","Staubsauger"],"groups":[["Hut","Affe","Hase"],["Staubsauger","Roller","Besen"]],"image":"bilder/f11.webp","description":"Ein lebendig wirkender Hut fährt auf einem Staubsauger; kleiner grüner Bodenstreifen."},{"id":"f12","sentence":"Die ___ trägt einen ___ als Hut.","answers":["Giraffe","Blumentopf"],"groups":[["Giraffe","Katze","Kuh"],["Blumentopf","Socken","Löffel"]],"image":"bilder/f12.webp","description":"Giraffe mit umgedrehtem Blumentopf auf dem Kopf."},{"id":"f13","sentence":"Der ___ badet in einer Wanne voller ___.","answers":["Elefant","Spaghetti"],"groups":[["Elefant","Fuchs","Löwe"],["Spaghetti","Seife","Bälle"]],"image":"bilder/f13.webp","description":"Elefant in Wanne voller gelber Spaghetti."},{"id":"f14","sentence":"Die ___ fliegt mit einem ___ über die Stadt.","answers":["Kuh","Regenschirm"],"groups":[["Kuh","Ente","Maus"],["Regenschirm","Besen","Ballon"]],"image":"bilder/f14.webp","description":"Kuh schwebt mit geöffnetem Regenschirm; kleine Dächer unten."},{"id":"f15","sentence":"Der ___ spielt auf einer ___ Musik.","answers":["Frosch","Gießkanne"],"groups":[["Frosch","Bär","Hund"],["Gießkanne","Trommel","Gitarre"]],"image":"bilder/f15.webp","description":"Frosch bläst spielerisch in eine Gießkanne; Musik nur angedeutet."},{"id":"f16","sentence":"Die ___ fährt mit einem ___.","answers":["Schnecke","Skateboard"],"groups":[["Schnecke","Schildkröte","Maus"],["Skateboard","Fahrrad","Roller"]],"image":"bilder/f16.webp","description":"Schnecke mit Schneckenhaus auf Skateboard."},{"id":"f17","sentence":"Der ___ trägt einen ___ auf seiner Nase.","answers":["Löwe","Schmetterling"],"groups":[["Löwe","Hund","Fuchs"],["Schmetterling","Käfer","Vogel"]],"image":"bilder/f17.webp","description":"Löwe mit Schmetterling auf der Nase."},{"id":"f18","sentence":"Die ___ schläft in einem riesigen ___.","answers":["Eule","Stiefel"],"groups":[["Eule","Katze","Maus"],["Stiefel","Korb","Bett"]],"image":"bilder/f18.webp","description":"Kleine schlafende Eule in riesigem Stiefel."},{"id":"f19","sentence":"Der ___ rutscht auf einer ___ den Berg hinunter.","answers":["Affe","Banane"],"groups":[["Affe","Bär","Hund"],["Banane","Schaufel","Matte"]],"image":"bilder/f19.webp","description":"Affe rutscht auf großer Banane einen schlichten Hang hinunter."},{"id":"f20","sentence":"Die ___ spielt mit einem ___ Fußball.","answers":["Hexe","Kürbis"],"groups":[["Hexe","Tasche","Ecke"],["Kürbis","Ball","Apfel"]],"image":"bilder/f20.webp","description":"Hexe kickt großen Kürbis wie Fußball; kein anderer Ball."}]};
+const MODES=[
+ ['Einfach','1 Lücke · feste Reihenfolge','easy',false],
+ ['Etwas schwieriger','1 Lücke · jedes Bild einmal, zufällige Reihenfolge','easy',true],
+ ['Noch schwieriger','2 Lücken · feste Reihenfolge','medium',false],
+ ['Schwer','2 Lücken · jedes Bild einmal, zufällige Reihenfolge','medium',true],
+ ['Lustig','2 Lücken · feste Reihenfolge','funny',false],
+ ['Lustig, aber schwieriger','2 Lücken · jedes Bild einmal, zufällige Reihenfolge','funny',true]
+];
+const $=id=>document.getElementById(id);
+const MAX_SECONDS=60;
+let mode=0,deck=[],choicesByQuestion=[],index=0,states=[],wrong=0,attempted=new Set(),practice=false,remaining=60,timer=null,startedAt=0,drag=null,selected=null,pending=null,inGame=false;
+const rand=a=>{const b=[...a];for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b};
+const show=id=>['menu','game','results'].forEach(n=>$(n).classList.toggle('hidden',n!==id));
+function clearPending(){if(pending){clearTimeout(pending);pending=null}}
+function clearTimer(){if(timer){clearInterval(timer);timer=null}}
+function cancelDrag(){if(drag){drag.ghost.remove();drag.source.classList.remove('dragged');drag=null;}document.querySelectorAll('.hole.target').forEach(e=>e.classList.remove('target'))}
+function localBest(k){try{return JSON.parse(localStorage.getItem('blitzlesen-best-'+(currentProfileId()||'gast')+'-'+k)||'null')}catch(e){return null}}
+function saveBest(k,v){try{localStorage.setItem('blitzlesen-best-'+(currentProfileId()||'gast')+'-'+k,JSON.stringify(v))}catch(e){}}
+const HISTORY_KEY='blitzlesen-bildsatz-lesetreppe-v2';
+function currentProfileId(){try{const id=localStorage.getItem('blitzspiele-active-profile-v1');const profiles=JSON.parse(localStorage.getItem('blitzlesen-local-profiles-v1')||'[]');return profiles.some(p=>p.id===id)?id:null}catch(e){return null}}
+function currentProfileName(){try{const profiles=JSON.parse(localStorage.getItem('blitzlesen-local-profiles-v1')||'[]');return profiles.find(p=>p.id===currentProfileId())?.name||'Gast'}catch(e){return 'Gast'}}
+
+function readHistory(){try{const a=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');return Array.isArray(a)?a.filter(x=>x.profileId===currentProfileId()):[]}catch(e){return []}}
+function saveAttempt(attempt){try{const all=JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]');const a=Array.isArray(all)?all:[];a.push({...attempt,profileId:currentProfileId()});localStorage.setItem(HISTORY_KEY,JSON.stringify(a.slice(-1500)))}catch(e){}}
+function wordOrderForRound(question){return question.groups.map(group=>rand(group))}
+function makeAttemptBar(solved,repeats,reference){
+  const total=solved+repeats,track=document.createElement('div'),bar=document.createElement('div');
+  track.className='resultTreppenTrack';bar.className='resultTreppenBar';
+  bar.setAttribute('aria-label',`${solved} geschafft, ${repeats} noch einmal`);
+  bar.style.width=(total?Math.max(total/Math.max(reference,1)*100,14):0)+'%';
+  const green=document.createElement('div');green.className='treppeGreen';green.textContent=String(solved);
+  green.style.width=total?Math.max(solved/total*100,solved?18:0)+'%':'100%';
+  const yellow=document.createElement('div');yellow.className='treppeYellow';yellow.textContent=String(repeats);
+  yellow.style.display=repeats?'flex':'none';
+  if(repeats)yellow.style.width=Math.max(repeats/total*100,14)+'%';
+  bar.append(green,yellow);track.append(bar);return track;
+}
+function showHistory(attempts){
+  const history=$('history');history.replaceChildren();
+  if(!attempts.length){const p=document.createElement('p');p.className='note';p.textContent='Noch keine Ergebnisse in dieser Stufe.';history.append(p);return;}
+  const reference=Math.max(1,...attempts.map(a=>a.solved+a.retries));
+  for(const item of [...attempts].reverse()){
+    const wrap=document.createElement('article');wrap.className='previousAttempt';
+    const header=document.createElement('header');
+    const title=document.createElement('strong');title.textContent=item.solved+' Sätze geschafft';
+    const when=document.createElement('span');when.className='historyMeta';
+    when.textContent=new Date(item.timestamp).toLocaleString('de-DE',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})+' Uhr';
+    header.append(title,when);wrap.append(header,makeAttemptBar(item.solved,item.retries,reference));
+    const details=document.createElement('div');details.className='historyMeta under';
+    details.textContent=`${item.solved} geschafft + ${item.retries} noch einmal = ${item.solved+item.retries} Versuche`;
+    wrap.append(details);history.append(wrap);
+  }
+}
+
+MODES.forEach((m,i)=>{const b=document.createElement('button');b.className='mode';const a=document.createElement('strong'),s=document.createElement('small'),p=document.createElement('em');a.textContent=(i+1)+'. '+m[0];s.textContent=m[1];p.textContent='20 Bilder · 1 Minute';b.append(a,s,p);b.addEventListener('click',()=>start(i));$('modegrid').append(b)});
+function start(m){clearPending();cancelDrag();clearTimer();mode=m;practice=$('practice').checked;deck=MODES[m][3]?rand(DATA[MODES[m][2]]):[...DATA[MODES[m][2]]];choicesByQuestion=deck.map(wordOrderForRound);index=0;states=deck.map(q=>({words:q.answers.map(()=>null),touches:0}));wrong=0;attempted=new Set();selected=null;remaining=MAX_SECONDS;inGame=true;show('game');$('stage').textContent=MODES[m][0];$('clock').classList.toggle('hidden',practice);$('timertrack').classList.toggle('hidden',practice);$('prev').classList.toggle('hidden',!practice);$('next').classList.toggle('hidden',!practice);$('reset').classList.toggle('hidden',!practice);showQuestion();if(!practice){startedAt=performance.now();timer=setInterval(tick,100);tick();}}
+function tick(){if(!inGame||practice)return;remaining=Math.max(0,MAX_SECONDS-Math.floor((performance.now()-startedAt)/1000));const seconds=Math.max(0,MAX_SECONDS-(performance.now()-startedAt)/1000);$('clock').textContent='0:'+String(remaining).padStart(2,'0');$('timerfill').style.width=(seconds/MAX_SECONDS*100)+'%';$('timerfill').classList.toggle('low',seconds<=15);if(seconds<=0)finish('time')}
+function showQuestion(){clearPending();cancelDrag();selected=null;const q=deck[index],state=states[index];$('count').textContent=(index+1)+' / 20';$('picture').src=q.image;$('picture').alt=q.description;$('next').textContent=index===19?'Auswertung ›':'Weiter ›';$('prev').disabled=index===0;render();feedback(state.words.every(Boolean)?'Richtig gelöst!':'Wörter direkt in die Lücken ziehen.',state.words.every(Boolean)?'ok':'');preloadNext()}
+function preloadNext(){if(index+1<deck.length){const im=new Image();im.src=deck[index+1].image}}
+function render(){const q=deck[index],state=states[index],sent=$('sentence');sent.replaceChildren();q.sentence.split('___').forEach((part,i)=>{sent.append(document.createTextNode(part));if(i<q.answers.length){const h=document.createElement('span');h.className='hole tapslot'+(state.words[i]?' filled':'');h.dataset.slot=i;h.textContent=state.words[i]||'________';h.setAttribute('aria-label',state.words[i]?'Lücke '+(i+1)+': '+state.words[i]:'Lücke '+(i+1));h.addEventListener('click',()=>{if(selected)drop(selected,i)});sent.append(h)}});
+const container=$('words');container.className='wordgroups'+(q.groups.length===1?' one':'');container.replaceChildren();choicesByQuestion[index].forEach((choices,gi)=>{const g=document.createElement('div');g.className='wordgroup';for(const word of choices){const b=document.createElement('button');b.className='word'+(state.words.includes(word)?' used':'')+(selected?.word===word&&selected.group===gi?' selected':'');b.textContent=word;b.disabled=state.words.includes(word);b.setAttribute('aria-label','Wortkarte '+word);b.dataset.group=gi;b.addEventListener('pointerdown',e=>beginDrag(e,{word,group:gi},b));b.addEventListener('click',e=>{if(drag)return;selected={word,group:gi};render();feedback('Jetzt eine Lücke antippen.')});g.append(b)}container.append(g)})}
+function feedback(s,t=''){$('feedback').textContent=s;$('feedback').className='feedback'+(t?' '+t:'')}
+function drop(sel,slot){if(!inGame||!deck[index])return;const q=deck[index],state=states[index];if(slot<0||slot>=q.answers.length||state.words[slot])return;attempted.add(index);state.touches++;if(q.answers[slot]!==sel.word){wrong++;selected=null;render();feedback('Das passt noch nicht. Probier es erneut.','bad');return;}
+state.words[slot]=sel.word;selected=null;render();const solved=state.words.every(Boolean);feedback(solved?'Richtig!':'Richtig! Jetzt noch das andere Wort.','ok');if(solved&&!practice){clearPending();pending=setTimeout(()=>{if(index<19){index++;showQuestion()}else finish('complete')},460)}}
+function beginDrag(e,sel,source){if(e.pointerType==='mouse'&&e.button!==0)return;e.preventDefault();cancelDrag();selected=null;const ghost=document.createElement('div');ghost.className='dragghost';ghost.textContent=sel.word;document.body.append(ghost);drag={sel,source,ghost,id:e.pointerId};source.classList.add('dragged');try{source.setPointerCapture(e.pointerId)}catch(err){}moveDrag(e)}
+function moveDrag(e){if(!drag||drag.id!==e.pointerId)return;drag.ghost.style.left=e.clientX+'px';drag.ghost.style.top=e.clientY+'px';[...document.querySelectorAll('.hole')].forEach(h=>{const r=h.getBoundingClientRect();const dx=Math.max(r.left-e.clientX,0,e.clientX-r.right),dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom);h.classList.toggle('target',Math.hypot(dx,dy)<37)})}
+function endDrag(e){if(!drag||drag.id!==e.pointerId)return;const value=drag.sel;const slots=[...document.querySelectorAll('.hole')];let best=Infinity,found=-1;slots.forEach((h,i)=>{if(states[index].words[i])return;const r=h.getBoundingClientRect(),dx=Math.max(r.left-e.clientX,0,e.clientX-r.right),dy=Math.max(r.top-e.clientY,0,e.clientY-r.bottom),dist=Math.hypot(dx,dy);if(dist<best){best=dist;found=i}});cancelDrag();if(best<49&&found>=0)drop(value,found);else feedback('Ziehe die Karte bis auf die gestrichelte Lücke.')}
+window.addEventListener('pointermove',moveDrag,{passive:false});window.addEventListener('pointerup',endDrag);window.addEventListener('pointercancel',cancelDrag);
+function finish(reason){
+  if(!inGame)return;
+  inGame=false;clearTimer();clearPending();cancelDrag();show('results');
+  const solved=states.filter(s=>s.words.every(Boolean)).length;
+  $('resulttitle').textContent=reason==='time'?'Die Minute ist vorbei!':reason==='complete'?'Alle 20 richtig!':'Deine Auswertung';
+  $('resultintro').textContent=practice?'Du hast dir diese 20 Bilder ohne Zeitdruck angesehen.':'So viele Aufgaben hast du in einer Minute geschafft:';
+  $('score').textContent=solved+' von 20 richtig';
+  $('treppeBox').classList.toggle('hidden',practice);
+  $('previousRuns').classList.toggle('hidden',practice);
+  const record=$('record');
+  if(practice){record.textContent='Übungsrunde ohne Zeitlimit – keine Rekordwertung.';return;}
+  const key='m'+mode;
+  const past=readHistory().filter(a=>a.mode===mode);
+  const totals=[solved+wrong,...past.map(a=>a.solved+a.retries)];
+  const ref=Math.max(1,...totals);
+  const trackWidth=solved+wrong>0?Math.max((solved+wrong)/ref*100,16):0;
+  $('resultTreppenBar').style.width=trackWidth+'%';
+  $('treppeGreen').textContent=String(solved);
+  $('treppeGreen').style.width=solved+wrong?Math.max(solved/(solved+wrong)*100,solved?18:0)+'%':'100%';
+  $('treppeYellow').textContent=String(wrong);
+  $('treppeYellow').style.display=wrong?'flex':'none';
+  if(wrong)$('treppeYellow').style.width=Math.max(wrong/(solved+wrong)*100,14)+'%';
+  $('treppeSentence').textContent=`${solved} geschafft + ${wrong} noch einmal = ${solved+wrong} Versuche`;
+  const old=localBest(key);
+  const best=Math.max(solved,old?.solved??0,...past.map(a=>a.solved));
+  if(!old||solved>(old.solved||0)){
+    saveBest(key,{solved,date:new Date().toISOString()});
+    record.textContent='Neuer persönlicher Rekord in dieser Stufe: '+solved+' richtige Sätze.';
+  }else{record.textContent='Dein Rekord in dieser Stufe: '+best+' richtige Sätze.'}
+  const attempt={mode,solved,retries:wrong,timestamp:Date.now()};
+  saveAttempt(attempt);
+  showHistory([...past,attempt]);
+}
+function leave(){clearTimer();clearPending();cancelDrag();inGame=false;show('menu')}
+$('goMenu').addEventListener('click',leave);$('next').addEventListener('click',()=>{if(index===19)finish('practice');else{index++;showQuestion()}});$('prev').addEventListener('click',()=>{if(index>0){index--;showQuestion()}});$('reset').addEventListener('click',()=>{states[index]={words:deck[index].answers.map(()=>null),touches:0};showQuestion()});$('choose').addEventListener('click',leave);$('again').addEventListener('click',()=>start(mode));
+// Der gemeinsame Service Worker in der Hauptauswahl sorgt für Offline-Nutzung.
+
+try{$('hinfo').textContent='Profil: '+currentProfileName()}catch(e){}
+
+</script></body></html>
