@@ -47,3 +47,8 @@ Reines HTML, CSS und JavaScript, ohne Build-Schritt und ohne externe JavaScript-
 ## Hinweise
 
 Die App misst bestätigte Wortwechsel, keine automatische Erkennung korrekt ausgesprochener Wörter. Der Button **Noch einmal** markiert Wörter für zusätzliche Übung. Die gespeicherten Daten sind nicht als standardisierter Lesetest zu verstehen.
+
+
+## Aktualisierung vom 08.10.2026
+
+Fehler behoben: Nach Ende einer Leserunde werden die Schaltflächen „Neue Runde starten“ und „Stufe wechseln“ nach drei Sekunden zuverlässig freigegeben. Der Service-Worker-Cache wurde auf v2 angehoben, damit installierte Apps das Update laden. Zur Aktualisierung die Dateien des Pakets hochladen, das Gerät einmal online verbinden, die App öffnen, schließen und erneut öffnen. Die lokalen Benutzerprofile bleiben bestehen.

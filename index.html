@@ -628,6 +628,9 @@ function show(page) {
 function start() {
   if (!nextRoundUnlocked && !$('done').classList.contains('hide')) return;
   clearTimeout(restartTimeout);
+  nextRoundUnlocked = false;
+  $('again').disabled = true;
+  $('choose').disabled = true;
   if (!activeProfile()) { show('profiles'); return; }
   clearInterval(tick);
   const mode = modes[level];
@@ -713,8 +716,18 @@ function finish() {
   $('treppeYellow').style.display = repeats > 0 ? 'flex' : 'none';
   if (repeats > 0) $('treppeYellow').style.width = `${yellowWidth}%`;
   $('treppeSentence').textContent = `${score} geschafft + ${repeats} noch einmal = ${totalRead} gelesen`;
+  // Sperre gegen versehentliche Doppeltipps beim Wechsel vom roten Weiter-Knopf.
+  nextRoundUnlocked = false;
+  $('again').disabled = true;
+  $('choose').disabled = true;
   show('done');
   save();
+  clearTimeout(restartTimeout);
+  restartTimeout = setTimeout(() => {
+    nextRoundUnlocked = true;
+    $('again').disabled = false;
+    $('choose').disabled = false;
+  }, 3000);
 }
 
 for (const btn of document.querySelectorAll('.level')) {

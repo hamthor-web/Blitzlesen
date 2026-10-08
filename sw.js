@@ -1,5 +1,5 @@
 /* Blitzlesen: lokale Offline-Version für GitHub Pages, auch unter Unterpfaden. */
-const CACHE_NAME = 'blitzlesen-offline-v1';
+const CACHE_NAME = 'blitzlesen-offline-v2';
 const BASE = self.registration.scope;
 const ASSETS = [
   BASE,
