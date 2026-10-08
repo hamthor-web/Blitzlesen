@@ -1,10 +1,10 @@
 /* Blitzlesen: lokale Offline-Version für GitHub Pages, auch unter Unterpfaden. */
-const CACHE_NAME = 'blitzlesen-offline-v2';
+const CACHE_NAME = 'blitzlesen-offline-v3';
 const BASE = self.registration.scope;
 const ASSETS = [
   BASE,
   new URL('index.html', BASE).href,
-  new URL('manifest.webmanifest', BASE).href,
+  new URL('manifest.webmanifest?version=3', BASE).href,
   new URL('icons/icon-192.png', BASE).href,
   new URL('icons/icon-512.png', BASE).href,
   new URL('icons/icon-maskable-512.png', BASE).href
