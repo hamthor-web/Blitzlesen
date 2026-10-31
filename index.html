@@ -105,7 +105,7 @@ body.chooser-open{overflow:hidden}
     <section class="progress-group"><h3>Wörter lesen</h3><p>Wie viele Wörter schaffst du in einer Minute?</p><div id="wordSteps"></div></section>
     <section class="progress-group"><h3>Lücken füllen</h3><p>Wie viele Sätze schaffst du in einer Minute?</p><div id="pictureSteps"></div></section>
   </div>
-  <section class="difficult-panel" id="difficultPanel" hidden aria-label="Persönliche schwierige Wörter"><h3>Meine schwierigen Wörter</h3><ul class="difficult-list" id="homeDifficultWords"></ul></section>
+  <section class="difficult-panel" id="difficultPanel" hidden aria-label="Persönliche Wörter zum Wiederholen"><h3>Meine Wörter zum Wiederholen</h3><ul class="difficult-list" id="homeDifficultWords"></ul></section>
   <section class="legacy-progress" id="legacyProgress" hidden aria-label="Frühere Spielergebnisse">
     <h3>Bisherige Ergebnisse</h3>
     <p>Aus der älteren Version sind noch Ergebnisse vorhanden. Wenn sie zu diesem Kind gehören, kannst du sie seinem Profil zuordnen.</p>
@@ -126,7 +126,7 @@ body.chooser-open{overflow:hidden}
     <div id="adultProfileActions">
       <section class="adult-section"><h3>Einzelne Stufen oder ganze Spiele</h3>
         <details class="adult-game" open><summary>Wörter lesen</summary><div class="adult-inner"><div id="adultWordStages"></div>
-        <button class="adult-button wide" type="button" id="clearDifficult">Nur die Liste schwieriger Wörter leeren</button>
+        <button class="adult-button wide" type="button" id="clearDifficult">Nur die Liste der Wörter zum Wiederholen leeren</button>
         <button class="adult-button wide danger" type="button" id="clearWordGame">Alle Ergebnisse von „Wörter lesen“ zurücksetzen</button></div></details>
         <details class="adult-game"><summary>Lücken füllen</summary><div class="adult-inner"><div id="adultPictureStages"></div>
         <button class="adult-button wide danger" type="button" id="clearPictureGame">Alle Ergebnisse von „Lücken füllen“ zurücksetzen</button></div></details>
@@ -205,7 +205,7 @@ function renderProgressForGame(hostId,profile,kind){
   let hasAny=false;
   labels.forEach((label,i)=>{
     let attempts=kind==='word'
-      ?history.filter(a=>a&&(a.label===label||(!a.label&&Number(a.level)===i))).map(a=>({good:a.metricsVersion===2?Math.max(0,int(a.count)-int(a.repeats)):int(a.count),retry:int(a.repeats),total:int(a.count),time:int(a.timestamp),date:a.date||''}))
+      ?history.filter(a=>a&&(a.label===label||(!a.label&&Number(a.level)===i))).map(a=>({good:int(a.count),retry:0,total:int(a.count),time:int(a.timestamp),date:a.date||''}))
       :history.filter(a=>a&&Number(a.mode)===i).map(a=>({good:int(a.solved),retry:int(a.retries),time:int(a.timestamp)}));
     attempts.sort((a,b)=>b.time-a.time);
     const oldBest=kind==='picture'?int(bestRecord(profile.id,i)?.solved):0;
@@ -227,7 +227,7 @@ function renderProgressForGame(hostId,profile,kind){
         const track=document.createElement('div');track.className='progress-track';
         const full=a.good+a.retry,clamped=Math.min(100,100*full/limit);
         const bar=document.createElement('div');bar.className='progress-bar';bar.style.width=(full?Math.max(1,clamped):0)+'%';
-        bar.setAttribute('aria-label',a.good+' geschafft, '+a.retry+' noch einmal');bar.title=(a.time?new Date(a.time).toLocaleDateString('de-DE')+' · ':'')+a.good+' geschafft, '+a.retry+' noch einmal';
+        const description=kind==='word'?a.good+' Wörter gelesen':a.good+' geschafft, '+a.retry+' noch einmal';bar.setAttribute('aria-label',description);bar.title=(a.time?new Date(a.time).toLocaleDateString('de-DE')+' · ':'')+description;
         const good=document.createElement('div');good.className='progress-green';good.style.width=(full?100*a.good/full:0)+'%';
         const retry=document.createElement('div');retry.className='progress-yellow';retry.style.width=(full?100*a.retry/full:0)+'%';
         bar.append(good,retry);track.append(bar);
@@ -378,7 +378,7 @@ init();
     const wordCount=(p.results||[]).length;const picCount=h.filter(a=>a?.profileId===p.id).length;
     const bestExists=bestKeysFor(p.id).some(k=>localStorage.getItem(k)!==null);
     el('clearWordGame').disabled=!wordCount&&!(p.difficultWords||[]).length;
-    el('clearDifficult').disabled=!(p.difficultWords||[]).length;
+    el('clearDifficult').disabled=!(p.difficultWords||[]).length&&!Object.keys(p.readingTimingByLevel||{}).length;
     el('clearPictureGame').disabled=!picCount&&!bestExists;
     el('clearProfileResults').disabled=!wordCount&&!picCount&&!(p.difficultWords||[]).length&&!bestExists;
   }
@@ -397,11 +397,11 @@ init();
   }
   function resetWord(includeResults=true){
     const p=forSelected();if(!p)return;
-    const text=includeResults?'alle Ergebnisse von „Wörter lesen“ und die Liste schwieriger Wörter':'nur die Liste schwieriger Wörter';
+    const text=includeResults?'alle Ergebnisse von „Wörter lesen“ und die Liste der Wörter zum Wiederholen':'nur die Liste der Wörter zum Wiederholen';
     if(!confirmAction('Für „'+p.name+'“ wirklich '+text+' löschen?'))return;
     const ps=profiles(),found=ps.find(x=>x.id===p.id);
     if(includeResults)found.results=[];
-    found.difficultWords=[];found.difficultByLevel={};found.difficultLegacyWords=[];
+    found.difficultWords=[];found.difficultByLevel={};found.difficultLegacyWords=[];found.readingTimingByLevel={};
     if(updateStorage({[ids.profiles]:ps}))afterUpdate('Die Daten von „Wörter lesen“ wurden für '+p.name+' zurückgesetzt.');
   }
   function resetPicture(){
@@ -413,7 +413,7 @@ init();
   function resetEntireProfile(){
     const p=forSelected();if(!p)return;
     if(!confirmAction('Für „'+p.name+'“ wirklich ALLE Spielstände, Bestwerte und schwierigen Wörter beider Spiele löschen? Das Profil bleibt bestehen.'))return;
-    const ps=profiles(),found=ps.find(x=>x.id===p.id);found.results=[];found.difficultWords=[];found.difficultByLevel={};found.difficultLegacyWords=[];
+    const ps=profiles(),found=ps.find(x=>x.id===p.id);found.results=[];found.difficultWords=[];found.difficultByLevel={};found.difficultLegacyWords=[];found.readingTimingByLevel={};
     const c=clearPictureFor(p.id,null);
     if(updateStorage({[ids.profiles]:ps,[ids.history]:c.history},c.deleted))afterUpdate('Alle Spielstände von '+p.name+' wurden gelöscht. Das Profil bleibt erhalten.');
   }
@@ -515,3 +515,4 @@ init();
 })();
 
 </script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(e=>console.warn("Offline:",e)))}</script></body></html>
+

@@ -26,11 +26,15 @@ Eine Runde dauert bis zu 60 Sekunden; sie endet auch, wenn alle Wörter des Vorr
 | Herbst · Stufe 1 | 100 Herbstbegriffe | fest |
 | Herbst · Stufe 2 | dieselben 100 Begriffe | neu gemischt |
 
-**Oh, oh – Noch einmal!** markiert das gerade angezeigte Wort zum erneuten Lesen. Das Wort bleibt sichtbar; erst **Weiter** bestätigt es und zeigt das nächste. Auch das erste Wort kann wiederholt werden. Mehrfache Betätigung zählt dieselbe Wortposition nur einmal. Die Zeit läuft weiter.
+Das Kind bestätigt jedes Wort ausschließlich mit **Weiter**. Die sichtbare Anzeigezeit wird je Kind und Stufe als Hinweis für spätere Wiederholungen verwendet. Ein langsam angezeigtes Wort gilt nicht als nachgewiesener Lesefehler.
 
-Nach Rundenende startet die Leserakete bei **0** und fliegt auf einer perspektivischen Karte zur exakten Wortzahl (Ziel:100). Die Rakete ist grün/gelb: Wiederholte Wörter sind eine Teilmenge der bestätigten Gesamtzahl. Drei beste Spielstände bleiben als rote, gelbe und grüne Punkte auf der Karte markiert; die zugehörigen Sterne in der Bestenliste tragen dieselben Farben. Textkästen und Verbindungslinien entfallen; die drei jüngsten werden separat angezeigt. Motivierende Lesetexte berücksichtigen den bisherigen Bestwert, ohne Sprachausgabe. Das kleine Würstchen sitzt in Flugrichtung auf der Rakete.
+Die zunächst großzügige Zeitgrenze beträgt max(5 Sekunden, (4 + Buchstabenanzahl) × 0,6 Sekunden). Ab acht verwertbaren Begegnungen wird sie anhand des mittleren bisherigen Tempos angepasst (Faktor0,85–2,5; höchstens25 Sekunden). Das sind vorläufige Spielparameter, keine wissenschaftlich normierten Leseschwellen. Sehr schnelle Klicks unter250ms liefern keine Tempo-Stichprobe; Wörter mit Tab-Unterbrechung werden nicht bewertet. Bei Zeitablauf darf ein ausreichend lange sichtbares unbestätigtes Wort in den Vorrat gelangen, erhöht aber nicht die Wortzahl.
 
-Ergebnisse bleiben je Profil und Stufe mit Datum/Uhrzeit erhalten. Frühere Spielstände werden nicht umgeschrieben; ältere Wiederholungszählungen sind entsprechend gekennzeichnet. Schwierige Wörter werden je Stufe geführt und lassen sich einzeln entfernen. In einer späteren Runde ohne Wiederholung bestätigte Wörter verschwinden nur aus der Liste derselben Stufe; nicht vorgekommene bleiben stehen. Frühere gemeinsame Übungswörter werden bei der ersten Verwendung in alle passenden Stufen übernommen. Nach drei Sekunden sind Neustart und Stufenwechsel verfügbar. Die10-Sekunden-Testdauer wurde nicht in die reguläre App übernommen: Hier gelten60 Sekunden.
+Ein auffälliges Wort kommt sofort in den stufengetrennten Wiederholungsvorrat. Es erscheint in folgenden Runden früh zwischen anderen Wörtern (drei andere Wörter, dann ein Vorratswort). Nach zwei zügigen Begegnungen wird es aus dem Vorrat entfernt. Die Gesamtzahl und die Wortvorräte bleiben erhalten; Reihenfolgen können durch diese Wiederholungsplanung von der ursprünglichen festen Reihenfolge abweichen. Bereits gesammelte Wörter werden erhalten.
+
+Nach Rundenende startet die Leserakete bei **0** und fliegt zur bestätigten Wortzahl. Farbsternen entsprechen die drei Bestwertpunkte; die drei jüngsten Ergebnisse stehen separat. Die Wiederholungstaste und die Anzeige/Zählung „Wörter wiederholt“ entfallen. Neue Ergebnisse haben metricsVersion:3 und speichern keine Wiederholungszahl. Ältere Ergebnisdaten bleiben unverändert erhalten, ihre früheren Wiederholungswerte werden nicht mehr angezeigt. Die Rakete hat keinen gelben Wiederholungsanteil mehr.
+
+Tempo-Stichproben und Wiederholungshinweise bleiben browserlokal im jeweiligen Kinderprofil und der jeweiligen Stufe. Sicherung/Wiederherstellung übernimmt die zusätzlichen Profilfelder; das Leeren der Wortliste setzt auch diese Zeitdaten zurück. Reguläre Runden dauern weiterhin60 Sekunden.
 
 ## Lücken füllen
 
@@ -86,7 +90,7 @@ Beim Bereitstellen den **gesamten Bestand mit beiden Teilspielordnern, Bildern, 
 
 Die Startseite einmal über die vorgesehene Webadresse online öffnen. Der Service Worker enthält beide Spiele und alle 60 Lückenfüllbilder. Eine Installation über die Browserfunktion hängt vom Gerät und Browser ab. Den Offlinebetrieb nach vollständigem Laden durch erneutes Öffnen ohne Netz prüfen.
 
-Aktueller Cache im Quellcode: **`blitzlesen-offline-v8`**. Ältere Hinweise auf v2 beschreiben einen früheren Stand. Bei Änderungen an den Anwendungsdateien auch den Offline-Cache berücksichtigen. Ein Wechsel von Domain oder Browser überträgt lokale Profile nicht automatisch.
+Aktueller Cache im Quellcode: **`blitzlesen-offline-v9`**. Ältere Hinweise auf v2 beschreiben einen früheren Stand. Bei Änderungen an den Anwendungsdateien auch den Offline-Cache berücksichtigen. Ein Wechsel von Domain oder Browser überträgt lokale Profile nicht automatisch.
 
 ## Technik und Dokumentationsstand
 
@@ -101,3 +105,4 @@ Historie: Am 08.10.2026 wurde die Freigabe von Neustart/Stufenwechsel nach Runde
 ## Aktualisierung 31.10.2026
 
 Leserakete aus dem freigegebenen Prototyp in Wörterlesen integriert; Korrektur der Wiederholungstaste, beständige Top3 und Lesetexte übernommen. Gemeinsame Profile, Sicherungen und Erwachsenenbereich bleiben erhalten. Raketenbilder sind vollständig in der HTML-Datei enthalten und damit Teil des Offlinepakets. Keine Änderung der Spielmechanik von Lückenfüllen.
+
