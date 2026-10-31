@@ -2,7 +2,7 @@
 
 Dieses Repository enthält den gemeinsamen Einstieg für **Wörter lesen** und **Lücken füllen**. Beide Spiele verwenden lokale Kinderprofile und sind für die Installation als PWA und den Offlinebetrieb vorbereitet.
 
-Stand dieser Beschreibung: 30.10.2026, mit den vorhandenen Quellen abgeglichen. Eine Quellcodeprüfung ersetzt keinen Geräte- oder Offline-Test.
+Stand dieser Beschreibung: 31.10.2026, mit den vorhandenen Quellen abgeglichen. Eine Quellcodeprüfung ersetzt keinen Geräte- oder Offline-Test.
 
 ## Spiele und Einstieg
 
@@ -26,9 +26,11 @@ Eine Runde dauert bis zu 60 Sekunden; sie endet auch, wenn alle Wörter des Vorr
 | Herbst · Stufe 1 | 100 Herbstbegriffe | fest |
 | Herbst · Stufe 2 | dieselben 100 Begriffe | neu gemischt |
 
-**Oh, oh – Noch einmal!** geht zum vorherigen Wort zurück. Dabei wird eine bereits gezählte Bestätigung zurückgenommen, eine Wiederholung gezählt und das Wort in der Liste schwieriger Wörter gesammelt. Die Zeit läuft weiter.
+**Oh, oh – Noch einmal!** markiert das gerade angezeigte Wort zum erneuten Lesen. Das Wort bleibt sichtbar; erst **Weiter** bestätigt es und zeigt das nächste. Auch das erste Wort kann wiederholt werden. Mehrfache Betätigung zählt dieselbe Wortposition nur einmal. Die Zeit läuft weiter.
 
-Die Auswertung zeigt bestätigte Wörter und Wiederholungen als grün-gelbe Lesetreppe. Ergebnisse werden je Profil und Stufe mit Datum und Uhrzeit gespeichert. Schwierige Wörter lassen sich einzeln entfernen. Nach Rundenende sind Neustart und Stufenwechsel nach drei Sekunden verfügbar.
+Nach Rundenende startet die Leserakete bei **0** und fliegt auf einer perspektivischen Karte zur exakten Wortzahl (Ziel:100). Die Rakete ist grün/gelb: Wiederholte Wörter sind eine Teilmenge der bestätigten Gesamtzahl. Drei beste Spielstände bleiben auf der Karte markiert; die drei jüngsten werden separat angezeigt. Motivierende Lesetexte berücksichtigen den bisherigen Bestwert, ohne Sprachausgabe. Das kleine Würstchen sitzt in Flugrichtung auf der Rakete.
+
+Ergebnisse bleiben je Profil und Stufe mit Datum/Uhrzeit erhalten. Frühere Spielstände werden nicht umgeschrieben; ältere Wiederholungszählungen sind entsprechend gekennzeichnet. Schwierige Wörter werden je Stufe geführt und lassen sich einzeln entfernen. In einer späteren Runde ohne Wiederholung bestätigte Wörter verschwinden nur aus der Liste derselben Stufe; nicht vorgekommene bleiben stehen. Frühere gemeinsame Übungswörter werden bei der ersten Verwendung in alle passenden Stufen übernommen. Nach drei Sekunden sind Neustart und Stufenwechsel verfügbar. Die10-Sekunden-Testdauer wurde nicht in die reguläre App übernommen: Hier gelten60 Sekunden.
 
 ## Lücken füllen
 
@@ -84,7 +86,7 @@ Beim Bereitstellen den **gesamten Bestand mit beiden Teilspielordnern, Bildern, 
 
 Die Startseite einmal über die vorgesehene Webadresse online öffnen. Der Service Worker enthält beide Spiele und alle 60 Lückenfüllbilder. Eine Installation über die Browserfunktion hängt vom Gerät und Browser ab. Den Offlinebetrieb nach vollständigem Laden durch erneutes Öffnen ohne Netz prüfen.
 
-Aktueller Cache im Quellcode: **`blitzlesen-offline-v6`**. Ältere Hinweise auf v2 beschreiben einen früheren Stand. Bei Änderungen an den Anwendungsdateien auch den Offline-Cache berücksichtigen. Ein Wechsel von Domain oder Browser überträgt lokale Profile nicht automatisch.
+Aktueller Cache im Quellcode: **`blitzlesen-offline-v7`**. Ältere Hinweise auf v2 beschreiben einen früheren Stand. Bei Änderungen an den Anwendungsdateien auch den Offline-Cache berücksichtigen. Ein Wechsel von Domain oder Browser überträgt lokale Profile nicht automatisch.
 
 ## Technik und Dokumentationsstand
 
@@ -93,3 +95,9 @@ Statische HTML-/CSS-/JavaScript-Dateien ohne externe JavaScript-Bibliotheken. Er
 Die Beschreibung wurde mit Startseite, beiden Teilspielen, Manifest und Service Worker abgeglichen. Gerätebedienung, Installation und Offlinebetrieb müssen separat geprüft werden. Die frühere Aussage „keine Export-/Import-Funktion“ ist durch den vorhandenen Erwachsenenbereich überholt.
 
 Historie: Am 08.10.2026 wurde die Freigabe von Neustart/Stufenwechsel nach Rundenende berichtigt. Der heutige gemeinsame Einstieg und Cache v6 sind davon zu unterscheiden.
+
+
+
+## Aktualisierung 31.10.2026
+
+Leserakete aus dem freigegebenen Prototyp in Wörterlesen integriert; Korrektur der Wiederholungstaste, beständige Top3 und Lesetexte übernommen. Gemeinsame Profile, Sicherungen und Erwachsenenbereich bleiben erhalten. Raketenbilder sind vollständig in der HTML-Datei enthalten und damit Teil des Offlinepakets. Keine Änderung der Spielmechanik von Lückenfüllen.
