@@ -28,7 +28,7 @@ Eine Runde dauert bis zu 60 Sekunden; sie endet auch, wenn alle Wörter des Vorr
 
 **Oh, oh – Noch einmal!** markiert das gerade angezeigte Wort zum erneuten Lesen. Das Wort bleibt sichtbar; erst **Weiter** bestätigt es und zeigt das nächste. Auch das erste Wort kann wiederholt werden. Mehrfache Betätigung zählt dieselbe Wortposition nur einmal. Die Zeit läuft weiter.
 
-Nach Rundenende startet die Leserakete bei **0** und fliegt auf einer perspektivischen Karte zur exakten Wortzahl (Ziel:100). Die Rakete ist grün/gelb: Wiederholte Wörter sind eine Teilmenge der bestätigten Gesamtzahl. Drei beste Spielstände bleiben auf der Karte markiert; die drei jüngsten werden separat angezeigt. Motivierende Lesetexte berücksichtigen den bisherigen Bestwert, ohne Sprachausgabe. Das kleine Würstchen sitzt in Flugrichtung auf der Rakete.
+Nach Rundenende startet die Leserakete bei **0** und fliegt auf einer perspektivischen Karte zur exakten Wortzahl (Ziel:100). Die Rakete ist grün/gelb: Wiederholte Wörter sind eine Teilmenge der bestätigten Gesamtzahl. Drei beste Spielstände bleiben als rote, gelbe und grüne Punkte auf der Karte markiert; die zugehörigen Sterne in der Bestenliste tragen dieselben Farben. Textkästen und Verbindungslinien entfallen; die drei jüngsten werden separat angezeigt. Motivierende Lesetexte berücksichtigen den bisherigen Bestwert, ohne Sprachausgabe. Das kleine Würstchen sitzt in Flugrichtung auf der Rakete.
 
 Ergebnisse bleiben je Profil und Stufe mit Datum/Uhrzeit erhalten. Frühere Spielstände werden nicht umgeschrieben; ältere Wiederholungszählungen sind entsprechend gekennzeichnet. Schwierige Wörter werden je Stufe geführt und lassen sich einzeln entfernen. In einer späteren Runde ohne Wiederholung bestätigte Wörter verschwinden nur aus der Liste derselben Stufe; nicht vorgekommene bleiben stehen. Frühere gemeinsame Übungswörter werden bei der ersten Verwendung in alle passenden Stufen übernommen. Nach drei Sekunden sind Neustart und Stufenwechsel verfügbar. Die10-Sekunden-Testdauer wurde nicht in die reguläre App übernommen: Hier gelten60 Sekunden.
 
@@ -86,7 +86,7 @@ Beim Bereitstellen den **gesamten Bestand mit beiden Teilspielordnern, Bildern, 
 
 Die Startseite einmal über die vorgesehene Webadresse online öffnen. Der Service Worker enthält beide Spiele und alle 60 Lückenfüllbilder. Eine Installation über die Browserfunktion hängt vom Gerät und Browser ab. Den Offlinebetrieb nach vollständigem Laden durch erneutes Öffnen ohne Netz prüfen.
 
-Aktueller Cache im Quellcode: **`blitzlesen-offline-v7`**. Ältere Hinweise auf v2 beschreiben einen früheren Stand. Bei Änderungen an den Anwendungsdateien auch den Offline-Cache berücksichtigen. Ein Wechsel von Domain oder Browser überträgt lokale Profile nicht automatisch.
+Aktueller Cache im Quellcode: **`blitzlesen-offline-v8`**. Ältere Hinweise auf v2 beschreiben einen früheren Stand. Bei Änderungen an den Anwendungsdateien auch den Offline-Cache berücksichtigen. Ein Wechsel von Domain oder Browser überträgt lokale Profile nicht automatisch.
 
 ## Technik und Dokumentationsstand
 
