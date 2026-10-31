@@ -110,3 +110,7 @@ Leserakete aus dem freigegebenen Prototyp in Wörterlesen integriert; Korrektur 
 
 ## Lückenfüllen: Strandreise · 31.10.2026
 Nach der Minutenrunde hüpft das kleine Würstchen von 0 zur erreichten Satzanzahl auf dem Strandweg zur Lagune. Bei 20 Sätzen öffnet sich Heikes Schatzkiste mit Funkeln. Die drei Bestwerte stehen mit roten, gelben und grünen Sternen in einer gemeinsamen Liste; passende Farbpunkte sitzen auf den Wegstationen. Drei jüngste Ergebnisse werden separat angezeigt. Profile, Stufen und vorhandene Ergebnisdaten bleiben erhalten; historische Fehlversuche werden als solche beschriftet. Richtige Karten fliegen mit einem Tipp in die passende Lücke. Alle Strandbilder und Skripte sind im Offline-Cache v11 enthalten. Die 30 redaktionell ergänzten Aufgaben sind hier noch nicht integriert.
+
+
+## Lückenfüllen: 90 Aufgaben und Strandziel30 · 31.10.2026
+Die drei Bildsatz-Vorräte enthalten je30 Aufgaben (zuvor20); die sechs Spielstufen teilen sich diese90 Aufgaben wie bisher. Alle30 neuen Originalbilder sind als platzsparende WebP-Dateien im Spiel enthalten. Quelle: Projektverwaltung „90_Saetze_3_Bildpakete“. Beim Ritter-Satz wurde die doppelte Auswahlkarte „Pferd“ durch „Schwert“ ersetzt; Lösungen und Sätze bleiben erhalten. Der Strandweg hat Stationen0/10/20/30; die Schatztruhe öffnet sich bei30 Sätzen. Frühere Ergebnisse/Bestwerte behalten ihre tatsächliche Satzanzahl. Timer60 Sekunden, Ein-Tipp-Bedienung, Übungsmodus und Profildaten bleiben erhalten. Offline-Cache v12 enthält alle90 Aufgabenbilder und die vollständigen Strandgrafiken.
