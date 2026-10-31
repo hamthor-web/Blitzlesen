@@ -106,3 +106,7 @@ Historie: Am 08.10.2026 wurde die Freigabe von Neustart/Stufenwechsel nach Runde
 
 Leserakete aus dem freigegebenen Prototyp in Wörterlesen integriert; Korrektur der Wiederholungstaste, beständige Top3 und Lesetexte übernommen. Gemeinsame Profile, Sicherungen und Erwachsenenbereich bleiben erhalten. Raketenbilder sind vollständig in der HTML-Datei enthalten und damit Teil des Offlinepakets. Keine Änderung der Spielmechanik von Lückenfüllen.
 
+
+
+## Lückenfüllen: Strandreise · 31.10.2026
+Nach der Minutenrunde hüpft das kleine Würstchen von 0 zur erreichten Satzanzahl auf dem Strandweg zur Lagune. Bei 20 Sätzen öffnet sich Heikes Schatzkiste mit Funkeln. Die drei Bestwerte stehen mit roten, gelben und grünen Sternen in einer gemeinsamen Liste; passende Farbpunkte sitzen auf den Wegstationen. Drei jüngste Ergebnisse werden separat angezeigt. Profile, Stufen und vorhandene Ergebnisdaten bleiben erhalten; historische Fehlversuche werden als solche beschriftet. Richtige Karten fliegen mit einem Tipp in die passende Lücke. Alle Strandbilder und Skripte sind im Offline-Cache v11 enthalten. Die 30 redaktionell ergänzten Aufgaben sind hier noch nicht integriert.
